@@ -39,6 +39,9 @@ reset = () => {
     `;
   const scoreboard = document.querySelector('#scoreboard');
   scoreboard.innerHTML = lives;
+
+  // reset keys array that stores keys pressed
+  keys = [];
 }
 
 
