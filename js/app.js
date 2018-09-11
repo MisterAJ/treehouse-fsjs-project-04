@@ -58,7 +58,9 @@ markButton = event => {
       }
     }
   }
-  game.handleInteraction(); 
+  if(game != null){
+    game.handleInteraction(); 
+  }
 }
 
 // Starts a new game
@@ -72,7 +74,7 @@ document.querySelector('#btn__reset').addEventListener('click', () =>{
 document.querySelector('#qwerty').addEventListener('click', event => this.markButton(event));
 
 // listen for key input
-window.addEventListener('keyup', event => {
+document.addEventListener('keyup', event => {
   if(!keys.includes(event.key)){
     keys.push(event.key.toLowerCase());
     this.markButton(event);
