@@ -25,7 +25,7 @@ class Game {
   handleInteraction() {
     // redundent step to phrase.js checkLetter() - one or the other could be removed from this project
     const querty = document.querySelectorAll('.key');
-    for(let i = 0; i < querty.length; i++){
+    for(let i in querty){
       if(event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
         this.phrase.checkLetter(event);
       }
@@ -37,7 +37,7 @@ class Game {
     this.missed++;
     if(event.target.nodeName === 'BUTTON'){ event.target.style.backgroundColor = 'red';}
     const querty = document.querySelectorAll('.key');
-    for(let i = 0; i < querty.length; i++){
+    for(let i in querty){
       if(event.key === querty[i].textContent){
         querty[i].style.backgroundColor = 'red';
         querty[i].disabled = true;
@@ -49,8 +49,10 @@ class Game {
       lives.src = './images/lostHeart.png';
       lives.parentElement.classList.add('tried');
       lives.parentElement.classList.remove('tries');
-      for( let i = 0; i < button.length; i++){
-        if(button[i].textContent === event){button[i].classList.add('missed');}
+      for( let i in button){
+        if(button[i].textContent === event){
+          button[i].classList.add('missed');
+        }
       }
     }
   }

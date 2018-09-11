@@ -6,6 +6,8 @@ let keys = [];
 
 // remove overlay
 reset = () => {
+
+  // Reset onscreen keys
   const querty = document.querySelectorAll(`.key`);
   for(let i = 0; i < querty.length; i++){
       querty[i].classList.remove('chosen');
@@ -13,6 +15,10 @@ reset = () => {
       querty[i].style.cursor = '';
       querty[i].style.backgroundColor = '';
   }
+
+  // Reset keys array that stores keys pressed
+  keys = [];
+
 
   // Remove last category from display
   if(document.querySelector('#banner p')){
@@ -27,7 +33,7 @@ reset = () => {
   }
   document.querySelector('#overlay').style.display = 'none';
 
-  // set lives
+  // Reset lives
   const lives = `
     <ol>
       <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
@@ -39,9 +45,6 @@ reset = () => {
     `;
   const scoreboard = document.querySelector('#scoreboard');
   scoreboard.innerHTML = lives;
-
-  // reset keys array that stores keys pressed
-  keys = [];
 }
 
 
@@ -63,15 +66,11 @@ markButton = event => {
   }
 }
 
-// Starts a new game
-document.querySelector('#btn__reset').addEventListener('click', () =>{
-  this.reset();
-  game = new Game(phrases, 0);
-  game.startGame();
-});
-
 // add event listener on the keys
 document.querySelector('#qwerty').addEventListener('click', event => this.markButton(event));
+
+// supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
+document.addEventListener("mousedown",  event => event.preventDefault());
 
 // listen for key input
 document.addEventListener('keyup', event => {
@@ -87,7 +86,9 @@ document.addEventListener('keyup', event => {
   }
 });
 
-// supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
-document.addEventListener("mousedown", function (event) {
-  event.preventDefault();
+// Starts a new game
+document.querySelector('#btn__reset').addEventListener('click', () =>{
+  this.reset();
+  game = new Game(phrases, 0);
+  game.startGame();
 });

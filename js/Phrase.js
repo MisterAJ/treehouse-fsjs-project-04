@@ -7,7 +7,7 @@ class Phrase {
   
 
   addPhraseToDisplay(phrase) {
-    for(let i = 0; i < phrase.phrase.length; i++){
+    for(let i in phrase.phrase){
       let li = document.createElement('li');
       // adds class name depending if letter or space
       li.textContent = `${phrase.phrase[i]}`;
@@ -23,7 +23,7 @@ class Phrase {
   checkLetter(event) {
     // verified in handleInteraction() - redundent step
     const querty = document.querySelectorAll('.key');
-    for(let i = 0; i < querty.length; i++){
+    for(let i in querty){
       if( event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
         this.showMatchedLetter(event);
       }
@@ -35,7 +35,7 @@ class Phrase {
     // if letter is a match display it
     const letter = document.querySelectorAll(".letter");
     this.match = null;
-    for(let i = 0; i < letter.length; i++){
+    for(let i in letter){
       // confirm if onscreen keyboard o or physical keybord key matches letter in phrase 
       if(event.target.innerHTML.toLowerCase() === letter[i].textContent.toLowerCase() ||
          event.key === letter[i].textContent.toLowerCase()){
