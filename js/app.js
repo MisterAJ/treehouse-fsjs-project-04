@@ -62,3 +62,8 @@ document.querySelector('#btn__reset').addEventListener('click', () =>{
 
 // add event listener on the keys
 document.querySelector('#qwerty').addEventListener('click', event => this.markButton(event));
+
+// supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
+document.addEventListener("mousedown", function (e) {
+  e.preventDefault();
+});
