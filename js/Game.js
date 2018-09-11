@@ -9,6 +9,7 @@ class Game {
     this.win = false;
   }
 
+
   getRandomPhrase() {
     // pick a random category
     const phraseObject = new Phrase(this.phrases[Math.floor(Math.random() * this.phrases.length)]).phrase;
@@ -20,23 +21,21 @@ class Game {
     return phrase;
   }
 
+
   handleInteraction() {
     // redundent step to phrase.js checkLetter() - one or the other could be removed from this project
-      const querty = document.querySelectorAll('.key');
-      for(let i = 0; i < querty.length; i++){
-        if(event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
-          this.phrase.checkLetter(event);
-        }
-      
+    const querty = document.querySelectorAll('.key');
+    for(let i = 0; i < querty.length; i++){
+      if(event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
+        this.phrase.checkLetter(event);
+      }
     }
   }
 
 
   removeLife() {
     this.missed++;
-    if(event.target.nodeName === 'BUTTON'){
-      event.target.style.backgroundColor = 'red';
-    }
+    if(event.target.nodeName === 'BUTTON'){ event.target.style.backgroundColor = 'red';}
     const querty = document.querySelectorAll('.key');
     for(let i = 0; i < querty.length; i++){
       if(event.key === querty[i].textContent){
@@ -51,12 +50,11 @@ class Game {
       lives.parentElement.classList.add('tried');
       lives.parentElement.classList.remove('tries');
       for( let i = 0; i < button.length; i++){
-        if(button[i].textContent === event){
-          button[i].classList.add('missed');
-        }
+        if(button[i].textContent === event){button[i].classList.add('missed');}
       }
     }
   }
+
 
   checkForWin() {
     if(this.missed === this.maxMissed){
@@ -68,22 +66,20 @@ class Game {
     } 
   }
 
+
   gameOver() {
     const overlay = document.querySelector('#overlay');
     const message = document.querySelector('#game-over-message');
     const button = document.querySelector('#btn__reset');
     overlay.style.display = 'flex';
     button.textContent = 'Play again?';
-    this.missed = 0;
-    if(this.win === true){
-      message.textContent = `Congratulations on guessing: ${this.phraseForMessage.toUpperCase()}!`;
-      overlay.className = 'win';   
-    } else {
-      message.textContent = `The phrase was: "${this.phraseForMessage.toUpperCase()}". Better luck next time!`;
-      overlay.className = 'lose';
-    }
+    this.win === true ? 
+      (message.textContent = `Congratulations on guessing: ${this.phraseForMessage.toUpperCase()}!`,
+      overlay.className = 'win') :
+      (message.textContent = `The phrase was: "${this.phraseForMessage.toUpperCase()}". Better luck next time!`, overlay.className = 'lose')
   }
 
+  
   startGame() {
     // Get random phrase
     let phrase = this.getRandomPhrase();
