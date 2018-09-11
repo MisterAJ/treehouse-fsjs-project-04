@@ -74,7 +74,6 @@ window.addEventListener('keyup', event => {
     keys.push(event.key.toLowerCase());
     this.markButton(event);
   }
-  console.log(keys);
 });
 
 // supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
