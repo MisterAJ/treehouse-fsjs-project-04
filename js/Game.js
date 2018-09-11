@@ -1,46 +1,90 @@
-/**
- * The class should include a constructor with the following properties:
-missed: used to track the number of missed guesses by the player.
-phrases: an array of phrases to use with the game (you'll use a method to create new instances of the Phrase class). A phrase should only include letters and spaces — no numbers, punctuation or other special characters.
- */
 class Game {
-  constructor(missed, phrases) {
-    this.missed = missed;
+  constructor(phrases, missed, phraseWithoutSpaces, phraseForMessage) {
+    this.phrase = new Phrase;
     this.phrases = phrases;
+    this.phraseWithoutSpaces = phraseWithoutSpaces;
+    this.phraseForMessage = phraseForMessage;
+    this.missed = missed;
+    this.missed = 0;
+    this.maxMissed = 5;
+    this.win = false;
   }
 
-  // this method randomly retrieves one of the phrases stored in the phrases array.
   getRandomPhrase() {
+    // pick a random category
+    const phraseObject = new Phrase(this.phrases[Math.floor(Math.random() * this.phrases.length)]).phrase;
+    const category = phraseObject.category;
 
+    // pick a random phrase from within the category
+    const phraseFromArray = phraseObject.phrases[Math.floor(Math.random() * this.phrases.length)];
+    const phrase = {"category":category,"phrase": phraseFromArray, "phraseNoSpace": phraseFromArray.split(' ').join('')};
+    return phrase;
   }
 
-  /**
-    this method checks to see if the button clicked by the player matches a letter in the phrase.
-    If it does not, then call the removeLife() method..
-    If the selected letter matches, call the showMatchedLetter() method on the phrase and then call the checkForWin() method.
-  */
   handleInteraction() {
-
+    // redundent step to phrase.js checkLetter() - one or the other could be removed from this project
+    if(event.target.nodeName === 'BUTTON'){
+      const querty = document.querySelectorAll(`.key`);
+      for(let i = 0; i < querty.length; i++){
+        if(querty[i].textContent === event.target.innerHTML){
+          this.phrase.checkLetter(event);
+        }
+      }
+    }
   }
 
-  // this method removes a life, removes a heart from the board, and, if the player is out of lives, ends the game.
+
   removeLife() {
-
+    this.missed++;
+    event.target.style.backgroundColor = 'red';
+    if(this.missed >= 1 && this.missed <= this.maxMissed){
+      const button = document.querySelectorAll('#qwerty button');
+      let lives = document.querySelector('.tries').firstChild;
+      lives.src = './images/lostHeart.png';
+      lives.parentElement.classList.add('tried');
+      lives.parentElement.classList.remove('tries');
+      for( let i = 0; i < button.length; i++){
+        if(button[i].textContent === event){
+          button[i].classList.add('missed');
+        }
+      }
+    }
   }
 
-  //  this method checks to see if the player has selected all of the letters.
   checkForWin() {
-
+    if(this.missed === this.maxMissed){
+      this.win = false;
+      this.gameOver();
+    } else if(document.querySelectorAll('.show').length === this.phraseWithoutSpaces.length){
+      this.win = true;
+      this.gameOver();
+    } 
   }
 
-  // this method displays a message if the player wins or a different message if they lose.
   gameOver() {
-
+    const overlay = document.querySelector('#overlay');
+    const message = document.querySelector('#game-over-message');
+    const button = document.querySelector('#btn__reset');
+    overlay.style.display = 'flex';
+    button.textContent = 'Play again?';
+    this.missed = 0;
+    if(this.win === true){
+      message.textContent = `Congratulations on guessing: ${this.phraseForMessage.toUpperCase()}!`;
+      overlay.className = 'win';   
+    } else {
+      message.textContent = `The phrase was: "${this.phraseForMessage.toUpperCase()}". Better luck next time!`;
+      overlay.className = 'lose';
+    }
   }
 
-  // calls the getRandomPhrase() method, and adds that phrase to the board by
-  // calling the Phrase class' addPhraseToDisplay() method.
   startGame() {
-    this.getRandomPhrase();
+    // Get random phrase
+    let phrase = this.getRandomPhrase();
+    // Add phrase to display
+    this.phrase.addPhraseToDisplay(phrase);
+    this.phraseForMessage = phrase.phrase;
+    this.phraseWithoutSpaces = phrase.phraseNoSpace;
+    // listen for events
+    this.handleInteraction();
   }
 }

@@ -1,29 +1,64 @@
-const startGame = document.getElementById('btn__reset');
-const querty = document.querySelectorAll(`.key`);
+// set game global value to null 
+let game = null;
 
-// this function hides the start screen overlay.
-resetDisplay = () => {
+// remove overlay
+reset = () => {
+  const querty = document.querySelectorAll(`.key`);
+  for(let i = 0; i < querty.length; i++){
+      querty[i].classList.remove('chosen');
+      querty[i].disabled = false; 
+      querty[i].style.cursor = '';
+      querty[i].style.backgroundColor = '';
+  }
 
+  // Remove last category from display
+  if(document.querySelector('#banner p')){
+    document.querySelector('#banner p').remove();
+  }
+   
+  // remove previous phrase from the display
+  let phrase = document.querySelectorAll('#phrase li');
+  let li = document.querySelectorAll('#phrase li');
+  for(let i = 0; i < phrase.length; i++) {
+    document.querySelector('#phrase ul').removeChild(li[i]);
+  }
+  document.querySelector('#overlay').style.display = 'none';
+
+  // set lives
+  const lives = `
+    <ol>
+      <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
+      <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
+      <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
+      <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
+      <li class="tries"><img src="images/liveHeart.png" height="35px" widght="30px"></li>
+    </ol>
+    `;
+  const scoreboard = document.querySelector('#scoreboard');
+  scoreboard.innerHTML = lives;
 }
 
-/*
-  this function is called when a player selects a letter.
-  It disables the button on the onscreen keyboard and calls the handleInteraction() method of the Game class.
-*/ 
-markButton = () => {
 
+// mark and disable the key that was pressed
+markButton = event => {
+  event.preventDefault();
+  const querty = document.querySelectorAll(`.key`);
+  for(let i = 0; i < querty.length; i++){
+    if(querty[i].textContent === event.target.innerHTML){
+      querty[i].classList.add('chosen');
+      querty[i].disabled = true; 
+      querty[i].style.cursor = 'default';
+    }
+  }
+  game.handleInteraction(); 
 }
 
-/*
-  Add an event listener to the "Start Game" button which calls the resetDisplay() function,
-  creates a new Game object, and starts the game
-*/
-startGame.addEventListener('click', event => {
-  event.preventDefault();
+// Starts a new game
+document.querySelector('#btn__reset').addEventListener('click', () =>{
+  this.reset();
+  game = new Game(phrases, 0);
+  game.startGame();
 });
 
-// Add event listeners to each of the keyboard buttons, so that clicking a button calls the markButton() function.
-querty.addEventListener('click', event => {
-  event.preventDefault();
-  this.markButton();
-});
+// add event listener on the keys
+document.querySelector('#qwerty').addEventListener('click', event => this.markButton(event));
