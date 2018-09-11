@@ -79,6 +79,12 @@ document.addEventListener('keyup', event => {
     keys.push(event.key.toLowerCase());
     this.markButton(event);
   }
+  // If enter key is pressed
+  if(event.key === 'Enter' && document.querySelector('#overlay').style.display !== 'none'){
+    this.reset();
+    game = new Game(phrases, 0);
+    game.startGame();
+  }
 });
 
 // supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
