@@ -24,9 +24,9 @@ class Phrase {
 
   checkLetter(event) {
     // verified in handleInteraction() - redundent step
-    const querty = document.querySelectorAll(`.key`);
+    const querty = document.querySelectorAll('.key');
     for(let i = 0; i < querty.length; i++){
-      if(querty[i].textContent === event.target.innerHTML){
+      if( event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
         this.showMatchedLetter(event);
       }
     }
@@ -37,10 +37,20 @@ class Phrase {
     const letter = document.querySelectorAll(".letter");
     this.match = null;
     for(let i = 0; i < letter.length; i++){
-      if(event.target.innerHTML.toLowerCase() === letter[i].textContent.toLowerCase()){
+      if(event.target.innerHTML.toLowerCase() === letter[i].textContent.toLowerCase() || event.key === letter[i].textContent.toLowerCase()){
         this.match = event;
         letter[i].classList.add('show');
-        event.target.style.backgroundColor = 'green';
+        if(event.target.nodeName === 'BUTTON'){
+          event.target.style.backgroundColor = 'green';
+        }
+        if(event.key){
+          const querty = document.querySelectorAll('.key');
+          for(let i = 0; i < querty.length; i++){
+            if(event.key === querty[i].textContent){
+              querty[i].style.backgroundColor = 'green';
+            }
+          }
+        }
       }
     }
     if(this.match === null){

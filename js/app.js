@@ -1,6 +1,9 @@
 // set game global value to null 
 let game = null;
 
+// store keypress values
+let keys = [];
+
 // remove overlay
 reset = () => {
   const querty = document.querySelectorAll(`.key`);
@@ -42,10 +45,10 @@ reset = () => {
 // mark and disable the key that was pressed
 markButton = event => {
   event.preventDefault();
-  if(event.target.nodeName === 'BUTTON'){
-    const querty = document.querySelectorAll(`.key`);
+  if(event.target.nodeName === 'BUTTON' || event.key){
+    const querty = document.querySelectorAll('.key');
     for(let i = 0; i < querty.length; i++){
-      if(querty[i].textContent === event.target.innerHTML){
+      if(event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
         querty[i].classList.add('chosen');
         querty[i].disabled = true; 
         querty[i].style.cursor = 'default';
@@ -65,7 +68,16 @@ document.querySelector('#btn__reset').addEventListener('click', () =>{
 // add event listener on the keys
 document.querySelector('#qwerty').addEventListener('click', event => this.markButton(event));
 
+// listen for key input
+window.addEventListener('keyup', event => {
+  if(!keys.includes(event.key)){
+    keys.push(event.key.toLowerCase());
+    this.markButton(event);
+  }
+  console.log(keys);
+});
+
 // supress users ability to click around in the phrase area and have the browsers text selector reveal the phrase
-document.addEventListener("mousedown", function (e) {
-  e.preventDefault();
+document.addEventListener("mousedown", function (event) {
+  event.preventDefault();
 });

@@ -22,9 +22,9 @@ class Game {
 
   handleInteraction() {
     // redundent step to phrase.js checkLetter() - one or the other could be removed from this project
-      const querty = document.querySelectorAll(`.key`);
+      const querty = document.querySelectorAll('.key');
       for(let i = 0; i < querty.length; i++){
-        if(querty[i].textContent === event.target.innerHTML){
+        if(event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
           this.phrase.checkLetter(event);
         }
       
@@ -34,7 +34,16 @@ class Game {
 
   removeLife() {
     this.missed++;
-    event.target.style.backgroundColor = 'red';
+    if(event.target.nodeName === 'BUTTON'){
+      event.target.style.backgroundColor = 'red';
+    }
+    const querty = document.querySelectorAll('.key');
+    for(let i = 0; i < querty.length; i++){
+      if(event.key === querty[i].textContent){
+        querty[i].style.backgroundColor = 'red';
+        querty[i].disabled = true;
+      }
+    }
     if(this.missed >= 1 && this.missed <= this.maxMissed){
       const button = document.querySelectorAll('#qwerty button');
       let lives = document.querySelector('.tries').firstChild;
