@@ -5,7 +5,6 @@ class Game {
     this.phraseWithoutSpaces = phraseWithoutSpaces;
     this.phraseForMessage = phraseForMessage;
     this.missed = missed;
-    this.missed = 0;
     this.maxMissed = 5;
     this.win = false;
   }
@@ -23,13 +22,12 @@ class Game {
 
   handleInteraction() {
     // redundent step to phrase.js checkLetter() - one or the other could be removed from this project
-    if(event.target.nodeName === 'BUTTON'){
       const querty = document.querySelectorAll(`.key`);
       for(let i = 0; i < querty.length; i++){
         if(querty[i].textContent === event.target.innerHTML){
           this.phrase.checkLetter(event);
         }
-      }
+      
     }
   }
 

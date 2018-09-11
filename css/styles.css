@@ -1,6 +1,6 @@
 /* Main styles */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 /* Variables */
 
 :root {
@@ -13,7 +13,7 @@
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
   --font-size-medium: 20px;
-  --transition: all .2s ease-in-out;
+  --transition: all .8s ease-in-out;
 }
 
 /* main */
@@ -28,9 +28,12 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background: #222;
 }
 
-li, ol, ul {
+li,
+ol,
+ul {
   padding: 0;
   display: inline-block;
 }
@@ -61,8 +64,8 @@ button {
 }
 
 #btn__reset {
-	width: 200px;
-	margin: 0 auto;
+  width: 200px;
+  margin: 0 auto;
 }
 
 .main-container {
@@ -79,16 +82,16 @@ button {
   padding: 10px;
 }
 
-#phrase ul li{
+#phrase ul li {
   margin-top: 15px;
 }
 
 /* Title */
 
-.header {
-  color: #3a3f58;
+.header,
+p {
+  color: var(--color-neutral-light);
 }
-
 
 /* Phrase */
 
@@ -107,8 +110,6 @@ button {
   width: 15px;
 }
 
-
-
 .show {
   color: #fff;
   background-color: #4ac0d5;
@@ -120,8 +121,9 @@ button {
   border-radius: 5px;
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
+  transition: all 2s;
+  transform: rotateY(360deg);
 }
-
 
 /* Keyboard */
 
@@ -159,7 +161,6 @@ button {
   border-right: solid 3px rgba(0, 0, 0, 0);
 }
 
-
 /* Overlay */
 
 #overlay {
@@ -173,6 +174,7 @@ button {
   left: 0;
   right: 0;
   border-radius: 5px;
+  z-index: 10;
 }
 
 .title {

@@ -42,12 +42,14 @@ reset = () => {
 // mark and disable the key that was pressed
 markButton = event => {
   event.preventDefault();
-  const querty = document.querySelectorAll(`.key`);
-  for(let i = 0; i < querty.length; i++){
-    if(querty[i].textContent === event.target.innerHTML){
-      querty[i].classList.add('chosen');
-      querty[i].disabled = true; 
-      querty[i].style.cursor = 'default';
+  if(event.target.nodeName === 'BUTTON'){
+    const querty = document.querySelectorAll(`.key`);
+    for(let i = 0; i < querty.length; i++){
+      if(querty[i].textContent === event.target.innerHTML){
+        querty[i].classList.add('chosen');
+        querty[i].disabled = true; 
+        querty[i].style.cursor = 'default';
+      }
     }
   }
   game.handleInteraction(); 

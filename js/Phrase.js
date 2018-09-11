@@ -6,7 +6,6 @@ class Phrase {
   }
   
   addPhraseToDisplay(phrase) {
-    console.log(`Phrases.js - Category: ${phrase.category} Phrase: ${phrase.phrase}`);
     for(let i = 0; i < phrase.phrase.length; i++){
       let li = document.createElement('li');
       // adds class name depending if letter or space
@@ -24,12 +23,11 @@ class Phrase {
   }
 
   checkLetter(event) {
-    if(event.target.nodeName === 'BUTTON'){
-      const querty = document.querySelectorAll(`.key`);
-      for(let i = 0; i < querty.length; i++){
-        if(querty[i].textContent === event.target.innerHTML){
-          this.showMatchedLetter(event);
-        }
+    // verified in handleInteraction() - redundent step
+    const querty = document.querySelectorAll(`.key`);
+    for(let i = 0; i < querty.length; i++){
+      if(querty[i].textContent === event.target.innerHTML){
+        this.showMatchedLetter(event);
       }
     }
   }
