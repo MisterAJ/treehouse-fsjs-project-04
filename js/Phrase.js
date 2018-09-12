@@ -35,7 +35,7 @@ class Phrase {
     // if letter is a match display it
     const letter = document.querySelectorAll(".letter");
     this.match = null;
-    for(let i in letter){
+    for(let i = 0; i < letter.length; i++){
       // confirm if onscreen keyboard o or physical keybord key matches letter in phrase 
       if(event.target.innerHTML.toLowerCase() === letter[i].textContent.toLowerCase() ||
          event.key === letter[i].textContent.toLowerCase()){
@@ -46,7 +46,7 @@ class Phrase {
         //  if physical keyboard
         if(event.key){
           const querty = document.querySelectorAll('.key');
-          for(let i = 0; i < querty.length; i++){
+          for(let i in querty){
             if(event.key === querty[i].textContent){ querty[i].style.backgroundColor = 'green'; }
           }
         }
