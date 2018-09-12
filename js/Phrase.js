@@ -7,7 +7,7 @@ class Phrase {
   
 
   addPhraseToDisplay(phrase) {
-    for(let i in phrase.phrase){
+    for(let i = 0; i < phrase.phrase.length; i++){
       let li = document.createElement('li');
       // adds class name depending if letter or space
       li.textContent = `${phrase.phrase[i]}`;
@@ -23,7 +23,7 @@ class Phrase {
   checkLetter(event) {
     // verified in handleInteraction() - redundent step
     const querty = document.querySelectorAll('.key');
-    for(let i in querty){
+    for(let i = 0; i < querty.length; i++){
       if( event.target.innerHTML === querty[i].textContent || event.key === querty[i].textContent){
         this.showMatchedLetter(event);
       }
@@ -46,7 +46,7 @@ class Phrase {
         //  if physical keyboard
         if(event.key){
           const querty = document.querySelectorAll('.key');
-          for(let i in querty){
+          for(let i = 0; i < querty.length; i++){
             if(event.key === querty[i].textContent){ querty[i].style.backgroundColor = 'green'; }
           }
         }
